@@ -17,6 +17,19 @@ export default createStore({
   getters: {
     pendingTodos(state, getters, rootState) {
       return state.todos.filter( todo => !todo.completed)
+    },
+    completedTodos(state, getters, rootState) {
+      return state.todos.filter( todo => todo.completed)
+    },
+    allTodos(state, getters, rootState) {
+      return state.todos
+    },
+    getTodosByTab: (state, getters, rootState) => ( tab ) => {
+      switch (tab) {
+        case ('all'): return getters.allTodos
+        case ('pending'): return getters.pendingTodos
+        case ('completed'): return getters.completedTodos
+      }
     }
   },
   modules: {
