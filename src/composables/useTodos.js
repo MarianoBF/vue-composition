@@ -21,6 +21,7 @@ const useTodos = ()=> {
   
                 //Methods
         toggleTodo: (id ) => store.commit("toggleTodo", id),
+        createTodo: (text) => store.commit("createTodo", text)
   
       };
   

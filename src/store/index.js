@@ -15,6 +15,9 @@ export default createStore({
       const TodoIdx = state.todos.findIndex((todo) => todo.id === id);
       state.todos[TodoIdx].completed = !state.todos[TodoIdx].completed
     },
+    createTodo(state, text = '') {
+      state.todos.push({id: Number(new Date()), completed: false, text})
+    }
   },
   actions: {},
   getters: {

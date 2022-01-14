@@ -29,21 +29,54 @@
       </li>
     </ul>
   </div>
+
+  <button @click="openModal">Crear item</button>
+  <modal title="Un titulo"  v-if="isOpen" @on:close="closeModal">
+    <template v-slot:content>
+      <p>Crear una tarea</p>
+      <input v-model="newText" type="text" />
+      <button @click="createTodo(newText)">Guardar</button>
+      <button @click="closeModal">Salir</button>
+    </template>
+  </modal>
 </template>
 
 <script>
-import useTodos from "../composables/useTodos"
+import useTodos from "../composables/useTodos";
+import { ref } from "vue";
+import Modal from "../components/Modal";
 
 export default {
+  components: { Modal },
+
   setup() {
+    const isOpen = ref(false);
 
-      const {pending, all, currentTab, completed, toggleTodo, getTodosByTab} = useTodos()
+    const newText = ref('')
 
+    const {
+      pending,
+      all,
+      currentTab,
+      completed,
+      toggleTodo,
+      getTodosByTab,
+      createTodo,
+    } = useTodos();
 
     return {
-        pending, all, currentTab, completed, toggleTodo, getTodosByTab
-    }
-
+        newText,
+      pending,
+      all,
+      currentTab,
+      completed,
+      toggleTodo,
+      getTodosByTab,
+      createTodo,
+      isOpen,
+      openModal: () => (isOpen.value = true),
+      closeModal: () => (isOpen.value = false),
+    };
   },
 };
 </script>
